@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\logo.png" />
+    <None Remove="Assets\Sounds\chime.wav" />
+    <None Remove="Assets\Sounds\click.wav" />
+    <None Remove="Assets\Sounds\error.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="4.0.0" />
+    <PackageReference Include="Microsoft.ML.Vision" Version="4.0.0" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup Label="Animal_Classifier">
+    <None Include="Animal_Classifier.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Sounds\chime.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\click.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sounds\error.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\logo.png" />
+  </ItemGroup>
+</Project>

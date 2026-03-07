@@ -1,0 +1,159 @@
+<Window x:Class="Animal_Classification.NoImageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="No Image"
+        Width="360" Height="230"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False">
+
+    <Window.Resources>
+        <!-- Fade-in on open -->
+        <Storyboard x:Key="FadeIn">
+            <DoubleAnimation Storyboard.TargetName="DialogCard"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.2"/>
+            <DoubleAnimation Storyboard.TargetName="DialogCard"
+                             Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                             From="-10" To="0" Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- OK button style -->
+        <Style x:Key="OkBtn" TargetType="Button">
+            <Setter Property="Background"      Value="#E05050"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily"      Value="Consolas"/>
+            <Setter Property="FontSize"        Value="12"/>
+            <Setter Property="FontWeight"      Value="Bold"/>
+            <Setter Property="Height"          Value="36"/>
+            <Setter Property="Width"           Value="100"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#F06060"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#C03030"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Drop shadow via outer border -->
+    <Border Padding="12">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="24" ShadowDepth="4"
+                              Direction="270" Opacity="0.22"
+                              Color="#000000"/>
+        </Border.Effect>
+
+        <!-- Card -->
+        <Border x:Name="DialogCard"
+                Background="{Binding CardBg}"
+                BorderBrush="{Binding CardBorder}"
+                BorderThickness="1"
+                CornerRadius="14"
+                Opacity="0"
+                MouseLeftButtonDown="DialogCard_MouseDown">
+
+            <Border.RenderTransform>
+                <TranslateTransform Y="-10"/>
+            </Border.RenderTransform>
+
+            <Grid>
+                <!-- Drag handle — whole top bar -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- ── Title bar ── -->
+                <Grid Grid.Row="0" Margin="20,16,16,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Red warning dot -->
+                        <Ellipse Width="10" Height="10" Fill="#EF4444" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="NO IMAGE SELECTED"
+                                   FontFamily="Consolas"
+                                   FontSize="10"
+                                   FontWeight="Bold"
+                                   Foreground="{Binding LabelColor}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Close X -->
+                    <Button Grid.Column="1"
+                            Content="✕"
+                            Width="28" Height="28"
+                            FontSize="11"
+                            FontFamily="Consolas"
+                            FontWeight="Bold"
+                            Foreground="{Binding MutedColor}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="Close_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="Bd" Background="Transparent" CornerRadius="5">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="Background" Value="#20EF4444"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- ── Body ── -->
+                <StackPanel Grid.Row="1" Margin="20,14,20,0" HorizontalAlignment="Center">
+                    <!-- Big emoji -->
+                    <TextBlock Text="🖼️"
+                               FontSize="38"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
+                    <!-- Message -->
+                    <TextBlock Text="Please upload an image before predicting."
+                               FontFamily="Segoe UI"
+                               FontSize="13"
+                               Foreground="{Binding BodyColor}"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- ── Footer ── -->
+                <Button Grid.Row="2"
+                        Content="GOT IT"
+                        Style="{StaticResource OkBtn}"
+                        HorizontalAlignment="Center"
+                        Margin="0,14,0,18"
+                        Click="Close_Click"/>
+            </Grid>
+        </Border>
+    </Border>
+</Window>
