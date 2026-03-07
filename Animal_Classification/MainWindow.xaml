@@ -299,7 +299,7 @@
                                     Click="UploadImage_Click"
                                     Margin="0,0,10,0"/>
                             <Button x:Name="PredictBtn"
-                                    Content="⚡  PREDICT"
+                                    Content="⚡  SCAN IMAGE"
                                     Style="{StaticResource PredictBtn}"
                                     Click="Predict_Click"/>
                         </StackPanel>
