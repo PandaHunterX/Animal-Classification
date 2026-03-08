@@ -29,8 +29,6 @@ The app ships as a Windows installer built with **Inno Setup**.
 3. Run the installer and follow the on-screen prompts.
 4. Launch **Animal Classifier** from the Start Menu or Desktop shortcut.
 
-> ⚠️ **Requirements:** Windows 10 or later · [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (if not bundled)
-
 ---
 
 ### Option 2 — Build from Source
