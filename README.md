@@ -1,4 +1,6 @@
 # 🐾 Animal Classification App
+<img width="705" height="750" alt="image" src="https://github.com/user-attachments/assets/a7495d2d-723f-494d-955b-4e3f11d743f0" />
+
 
 A desktop image classification application built with **WPF** and **ML.NET** that identifies over 111 animal species from a photo — complete with a confidence score, light/dark theme, and audio feedback.
 
