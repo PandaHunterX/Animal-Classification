@@ -15,7 +15,7 @@ namespace Animal_Classification
         private string? imagePath;
         private bool isDarkMode = false;
 
-        // ── GitHub ──────────────────────────────────────────
+        // GitHub Profile
         private const string GitHubUser = "PandaHunterX";
         private const string GitHubUrl = "https://github.com/PandaHunterX";
         private const string GitHubAvatar = "https://github.com/PandaHunterX.png?size=92";
@@ -25,24 +25,17 @@ namespace Animal_Classification
             InitializeComponent();
             LoadGitHubAvatar();
         }
-
-        // Plays on every button click (Upload, Predict, Theme toggle)
+        // Sounds
         private static readonly string SoundClickPath = GetSoundPath(@"Assets\Sounds\click.wav");
-
-        // Plays when the prediction result is revealed
         private static readonly string SoundChimePath = GetSoundPath(@"Assets\Sounds\chime.wav");
-
-        // Plays when an error occurs during prediction
         private static readonly string SoundErrorPath = GetSoundPath(@"Assets\Sounds\error.wav");
 
-        /// Resolves a relative path against the folder where the .exe lives.
-        /// e.g.  bin\Debug\net8.0-windows\Assets\Sounds\click.wav
         private static string GetSoundPath(string relativePath) =>
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
 
         private static void PlaySound(string filePath)
         {
-            if (!File.Exists(filePath)) return; // silently skip if file not found
+            if (!File.Exists(filePath)) return; 
 
             Task.Run(() =>
             {
@@ -55,9 +48,8 @@ namespace Animal_Classification
             });
         }
 
-        // ════════════════════════════════════════════════════
-        //  THEME TOGGLE
-        // ════════════════════════════════════════════════════
+
+        // Theme Toggle
         private void ThemeToggle_Click(object sender, RoutedEventArgs e)
         {
             PlaySound(SoundClickPath);
@@ -71,7 +63,7 @@ namespace Animal_Classification
 
             if (dark)
             {
-                // ── Dark palette — deep navy base, vivid lime accent ──
+                // Dark palette 
                 res["BgWindow"] = Brush("#0B0E16");
                 res["BgCard"] = Brush("#12161F");
                 res["BgDropZone"] = Brush("#0D1018");
@@ -100,7 +92,7 @@ namespace Animal_Classification
             }
             else
             {
-                // ── Light palette ───────────────────────────
+                // Light palette 
                 res["BgWindow"] = Brush("#F2F5EE");
                 res["BgCard"] = Brush("#FFFFFF");
                 res["BgDropZone"] = Brush("#F0F4EB");
@@ -129,15 +121,14 @@ namespace Animal_Classification
             }
         }
 
-        /// Shorthand: hex string → SolidColorBrush
+
         private static SolidColorBrush Brush(string hex) =>
             hex == "Transparent"
                 ? new SolidColorBrush(Colors.Transparent)
                 : new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));
 
-        // ════════════════════════════════════════════════════
-        //  GITHUB
-        // ════════════════════════════════════════════════════
+
+        //  GITHUB Loader
         private async void LoadGitHubAvatar()
         {
             try
@@ -153,7 +144,7 @@ namespace Animal_Classification
                 bmp.EndInit();
                 bmp.Freeze();
 
-                // Fill the Ellipse's ImageBrush — gives a true circular clip
+
                 AvatarBrush.ImageSource = bmp;
             }
             catch
@@ -167,9 +158,7 @@ namespace Animal_Classification
             Process.Start(new ProcessStartInfo(GitHubUrl) { UseShellExecute = true });
         }
 
-        // ════════════════════════════════════════════════════
         //  IMAGE UPLOAD
-        // ════════════════════════════════════════════════════
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {
             PlaySound(SoundClickPath);
@@ -189,9 +178,7 @@ namespace Animal_Classification
             }
         }
 
-        // ════════════════════════════════════════════════════
-        //  PREDICT
-        // ════════════════════════════════════════════════════
+        //  Classification
         private async void Predict_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(imagePath))
@@ -213,7 +200,6 @@ namespace Animal_Classification
                 UploadBtn.IsEnabled = false;
                 PredictBtn.IsEnabled = false;
 
-                // Store result from background thread — display AFTER both tasks finish
                 string predLabel = "";
                 float bestScore = 0f;
 
@@ -226,10 +212,9 @@ namespace Animal_Classification
                         predLabel = result.PredictedLabel;
                         bestScore = result.Score.Max();
                     }),
-                    Task.Delay(3000) // minimum 3-second loading display
+                    Task.Delay(3000) 
                 );
 
-                // Both prediction AND 3s delay done — now reveal result
                 PredictionResult.Text = $"🐾  {predLabel.ToUpper()}";
 
                 ConfidenceValue.Text = $"{bestScore:P2}";
@@ -244,7 +229,7 @@ namespace Animal_Classification
                 var sb = (Storyboard)FindResource("PredictionAnimation");
                 sb.Begin(PredictionResult);
 
-                PlaySound(SoundChimePath); // chime fires after result is revealed
+                PlaySound(SoundChimePath); 
             }
             catch (Exception ex)
             {
