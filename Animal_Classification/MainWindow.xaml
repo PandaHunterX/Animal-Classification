@@ -13,7 +13,7 @@
 
     <Window.Resources>
 
-        <!-- ══════════ LIGHT THEME DEFAULTS ══════════ -->
+        <!-- LIGHT THEME DEFAULTS -->
         <SolidColorBrush x:Key="BgWindow"          Color="#F2F5EE"/>
         <SolidColorBrush x:Key="BgCard"            Color="#FFFFFF"/>
         <SolidColorBrush x:Key="BgDropZone"        Color="#F0F4EB"/>
@@ -38,7 +38,6 @@
         <SolidColorBrush x:Key="ToggleFg"          Color="#4A8A00"/>
         <SolidColorBrush x:Key="TxtLabel"          Color="#6A8A58"/>
 
-        <!-- Result fade-in + slide-up -->
         <Storyboard x:Key="PredictionAnimation">
             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                              From="0" To="1" Duration="0:0:0.55"/>
@@ -50,7 +49,6 @@
             </DoubleAnimation>
         </Storyboard>
 
-        <!-- Upload outline button -->
         <Style x:Key="UploadBtn" TargetType="Button">
             <Setter Property="Foreground"       Value="{DynamicResource BtnOutlineFg}"/>
             <Setter Property="Background"       Value="{DynamicResource BtnOutlineBg}"/>
@@ -89,7 +87,6 @@
             </Setter>
         </Style>
 
-        <!-- Predict filled button -->
         <Style x:Key="PredictBtn" TargetType="Button">
             <Setter Property="Background"      Value="{DynamicResource Accent}"/>
             <Setter Property="Foreground"      Value="White"/>
@@ -124,7 +121,6 @@
             </Setter>
         </Style>
 
-        <!-- GitHub hyperlink button -->
         <Style x:Key="LinkBtn" TargetType="Button">
             <Setter Property="Background"      Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -149,7 +145,6 @@
             </Setter>
         </Style>
 
-        <!-- Theme toggle pill button -->
         <Style x:Key="ToggleBtn" TargetType="Button">
             <Setter Property="Background"      Value="{DynamicResource ToggleBg}"/>
             <Setter Property="Foreground"      Value="{DynamicResource ToggleFg}"/>
@@ -183,7 +178,6 @@
     <Border Background="{DynamicResource BgWindow}">
         <Grid>
 
-            <!-- Subtle accent glow (top-right) -->
             <Ellipse Width="260" Height="260"
                      HorizontalAlignment="Right" VerticalAlignment="Top"
                      Margin="0,-90,-70,0"
@@ -196,14 +190,13 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <!-- ══════════ MAIN CARD ══════════ -->
+            <!-- MAIN CARD -->
             <Border Background="{DynamicResource BgCard}"
                     BorderBrush="{DynamicResource BorderCard}"
                     BorderThickness="1"
                     CornerRadius="16"
                     Margin="28"
                     Padding="34,26">
-                <!-- Grid: top content auto-sizes, middle spacer stretches, GitHub pinned to bottom -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -211,7 +204,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- ── Top content ── -->
                     <StackPanel Grid.Row="0">
 
                         <!-- Header row -->
@@ -249,7 +241,6 @@
 
                         <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,6,0,18"/>
 
-                        <!-- Image drop zone -->
                         <Border x:Name="DropZone"
                                 Height="250"
                                 BorderBrush="{DynamicResource BorderDrop}"
@@ -280,7 +271,6 @@
                             </Grid>
                         </Border>
 
-                        <!-- Filename label -->
                         <TextBlock x:Name="FileNameLabel"
                                    Text="—"
                                    FontFamily="Consolas"
@@ -289,7 +279,6 @@
                                    HorizontalAlignment="Center"
                                    Margin="0,0,0,14"/>
 
-                        <!-- Action buttons -->
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center"
                                     Margin="0,0,0,12">
@@ -304,7 +293,6 @@
                                     Click="Predict_Click"/>
                         </StackPanel>
 
-                        <!-- Loading panel -->
                         <StackPanel x:Name="LoadingPanel" Visibility="Collapsed" Margin="0,0,0,12">
                             <TextBlock Text="Analyzing image..."
                                        FontFamily="Consolas"
@@ -320,7 +308,6 @@
                                          BorderThickness="0"/>
                         </StackPanel>
 
-                        <!-- Result card -->
                         <Border x:Name="ResultCard"
                                 Background="{DynamicResource BgResultCard}"
                                 BorderBrush="{DynamicResource BorderResult}"
@@ -353,9 +340,6 @@
 
                     </StackPanel>
 
-                    <!-- Row 1: spacer (empty, stretches) -->
-
-                    <!-- ── GitHub Profile Card — pinned to bottom ── -->
                     <StackPanel Grid.Row="2">
                         <Rectangle Height="1" Fill="{DynamicResource Divider}" Margin="0,0,0,14"/>
 
@@ -370,16 +354,13 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Circular avatar: Ellipse with ImageBrush fill — true circle, no clipping artifacts -->
                                 <Grid Grid.Column="0" Width="60" Height="60" Margin="0,0,16,0">
-                                    <!-- Accent ring behind -->
                                     <Ellipse Width="60" Height="60"
                                              StrokeThickness="2.5">
                                         <Ellipse.Stroke>
                                             <DynamicResource ResourceKey="Accent"/>
                                         </Ellipse.Stroke>
                                     </Ellipse>
-                                    <!-- Image clipped natively to ellipse shape via Fill -->
                                     <Ellipse Width="54" Height="54"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center">
@@ -390,7 +371,6 @@
                                     </Ellipse>
                                 </Grid>
 
-                                <!-- Label / Name / Link -->
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Text="TRAINED &amp; DEPLOYED BY"
                                                FontFamily="Consolas"
